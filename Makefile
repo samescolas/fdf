@@ -17,13 +17,13 @@ OBJS = $(notdir $(SRCS:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	gcc -o $(NAME) .objs/$(OBJS) $(LINK) -framework OpenGL -framework AppKit
+	$(CC) .objs/*.o $(LINK) -framework OpenGL -framework AppKit -o $@
 
 $(LIBFT): $(LIBFT_DEPS)
 	make -C libs/libft
 
 $(OBJS): $(SRCS) $(HEADERS) $(LIBFT)
-	$(CC) -c $(SRCS) -o .objs/$(notdir $@)
+	$(CC) $(CFLAGS) -c $(shell find . -name $(notdir $(@:.o=.c))) -o .objs/$@
 
 .PHONY : clean fclean re print
 
