@@ -1,4 +1,5 @@
 #include "../libs/minilibx/mlx.h"
+#include "../includes/fdf.h"
 
 void	draw_vertical_line(void *mlx, void *win, int x, int y0, int y1)
 {
@@ -23,15 +24,15 @@ void	draw_line(void *mlx, void *win, int x0, int x1, int y0, int y1)
 		draw_vertical_line(mlx, win, x0, y0, y1);
 		return ;
 	}
-	derr = (y1 - y0) / (x1 - x0);
+	derr = (MAX(y0, y1) - MIN(y0, y1)) / (MAX(x0, x1) - MIN(x0, x1));
 	err = derr - 0.5;
 
-	y = y0;
-	x = x0 - 1;
+	y = MIN(y0, y1);
+	x = MIN(x0, x1) - 1;
 
 	color = 0x00FFFFFF;
 	pixel_count = 0;
-	while (++x < x1)
+	while (++x < MAX(x0, x1))
 	{
 		if (pixel_count > 17)
 			color -= 242;
