@@ -11,8 +11,7 @@ int		main(void)
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 400, 400, "something");
 
-	draw_line(mlx, win, 0, 147, 50, 400);
-	draw_line(mlx, win, 250, 250, 50, 400);
+	draw_line(mlx, win, 0, 200, 400, 200);
 	mlx_loop(mlx);
 	return (0);
 }
