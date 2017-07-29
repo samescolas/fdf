@@ -66,7 +66,7 @@ void			resize_blueprint(unsigned short ***blueprint, unsigned short rows)
 	*blueprint = ret;
 }
 
-unsigned short	**read_bp(
+unsigned short	**read_blueprint(
 		char *filepath,
 		unsigned short *rows,
 		unsigned short *cols)
