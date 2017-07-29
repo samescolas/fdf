@@ -3,9 +3,39 @@
 #include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
 
-void	resize_blueprint(unsigned short ***blueprint, unsigned short rows);
+void			resize_blueprint(unsigned short ***blueprint, unsigned short rows);
+unsigned short	*create_row(int len);
 
-unsigned short		**read_bp(
+void			print_row(unsigned short *row)
+{
+	int		len;
+	int		i;
+
+	len = sizeof(row) / sizeof(row[0]);
+	i = -1;
+	while (++i < len)
+		ft_putnbr(row[i]);
+}
+
+int				fdf_get_len(char *line)
+{
+	int		len;
+	int		i;
+
+	len = 0;
+	i = -1;
+	while (line[++i])
+	{
+		while (line[i] && line[i] >= '0' && line[i] <= '9')
+			++i;
+		++len;
+		while (line[i] && line[i] == ' ')
+			++i;
+	}
+	return (len + 1);
+}
+
+unsigned short	**read_bp(
 		char *filepath,
 		unsigned short *rows,
 		unsigned short *cols)
@@ -14,23 +44,49 @@ unsigned short		**read_bp(
 	char			*line;
 	char			*ptr;
 	int				fd;
+	int				len;
 
+	if (!(blueprint = (unsigned short **)malloc(100 * sizeof(unsigned short))))
+		ft_fatal("err: out of memory\n");
 	if ((fd = open(filepath, O_RDONLY)) < 0)
 		ft_fatal("fdf: unable to open file\n");
-	*rows = -1;
+	*rows = 0;
+	len = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
+		if (len == 0)
+			len = fdf_get_len(line);
 		if (*rows > 0 && *rows % 100 == 0)
 			resize_blueprint(&blueprint, *rows);
+		blueprint[*rows] = create_row(len);
 		*cols = 0;
-		blueprint[*rows][(*cols)++] = (unsigned short)ft_atoi(line);
-		while ((ptr = ft_strchr(ptr, ' ')))
-			blueprint[*rows][(*cols)++] = (unsigned short)ft_atoi(ptr);
+		ptr = line;
+		while (*ptr)
+		{
+			while(*ptr && (*ptr < '0' || *ptr > '9'))
+				++ptr;
+			blueprint[*rows][(*cols)++] = ft_atoi(ptr);
+			ft_putnbr(ft_atoi(ptr) /10);
+			write(1, " ", 1);
+			while (*ptr && (*ptr >= '0' && *ptr <= '9'))
+				++ptr;
+		}
+		*rows += 1;
 	}
 	return (blueprint);
 }
 
-void	resize_blueprint(unsigned short ***blueprint, unsigned short rows)
+unsigned short	*create_row(int len)
+{
+	unsigned short	*ret;
+
+	if (!(ret = (unsigned short *)malloc(len * sizeof(unsigned short))))
+		ft_fatal("err: out of memory\n");
+	ft_bzero(ret, len * sizeof(unsigned short));
+	return (ret);
+}
+
+void			resize_blueprint(unsigned short ***blueprint, unsigned short rows)
 {
 	unsigned short	**ret;
 	int				i;
