@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:57:27 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/28 17:58:44 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 10:59:27 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ unsigned short	*fdf_str_to_ushort_array(char *line, int len)
 	{
 		while (*ptr && (*ptr < '0' || *ptr > '9'))
 			++ptr;
-		ret[i++] = ft_atoi(ptr);
+		if (ft_strncmp(ptr, "0x", 2) == 0)
+			ret[i++] = ft_atoi_hex(ptr + 2);
+		else
+			ret[i++] = ft_atoi(ptr);
 		while (*ptr && (*ptr >= '0' && *ptr <= '9'))
 			++ptr;
 	}
