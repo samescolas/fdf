@@ -33,7 +33,7 @@ typedef struct		s_fdf
 {
 	t_window		*window;
 	unsigned short	**blueprint;
-	t_keys			keys;
+	t_keys			*keys;
 	unsigned short	bp_rows;
 	unsigned short	bp_cols;
 }					t_fdf;
@@ -42,5 +42,6 @@ t_fdf			*fdf_init(
 		unsigned short width, unsigned short height, char *title, char *filepath);
 unsigned short	**read_blueprint(
 		char *filepath, unsigned short *rows, unsigned short *cols);
+void			fdf_destroy_later(t_fdf *fdf, int loading);
 
 #endif
