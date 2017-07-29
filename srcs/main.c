@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/28 14:36:11 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/28 17:17:21 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ t_fdf	*fdf_init(
 			ret = (void *)0;
 			return ((void *)0);
 		}
-		ret->window->mlx = mlx_init();
-		ret->window->window = mlx_new_window(ret->window->mlx, width, height, title);
+		//ret->window->mlx = mlx_init();
+		if (width && !height)
+			ret->window->window = mlx_new_window(ret->window->mlx, width, height, title);
 		ret->window->height = height;
 		if (!(ret->blueprint = read_bp(filepath, &ret->bp_rows, &ret->bp_cols)))
 		{
@@ -64,13 +65,20 @@ int		main(int argc, char **argv)
 			return (0);
 		i = -1;
 		grid = fdf->blueprint;
-		while (grid[++i] != (void *)0)
+		while (++i < fdf->bp_rows)
 		{
-			j = 0;
-			while (grid[i][j] != 100)
-				ft_putnbr(grid[i][j++]);
+			j = -1;
+			ft_putstr("[");
+			while (++j < fdf->bp_cols)
+			{
+				if (grid[i][j] <= 9 && j > 0)
+					write(1, " ", 1);
+				if (j > 0)
+					write(1, " ", 1);
+				ft_putnbr(grid[i][j]);
+			}
+			ft_putendl("]");
 		}
-
 		//draw_line(mlx, win, 0, 200, 400, 200);
 		//mlx_loop(mlx);
 	}
