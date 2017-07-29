@@ -23,7 +23,7 @@ $(LIBFT): $(LIBFT_DEPS)
 	make -C libs/libft
 
 $(OBJS): $(SRCS) $(HEADERS) $(LIBFT)
-	$(CC) $(CFLAGS) -c $(shell find . -name $(notdir $(@:.o=.c))) -o .objs/$@
+	$(CC) $(CFLAGS) -Iincludes -c $(shell find . -name $(notdir $(@:.o=.c))) -o .objs/$@
 
 .PHONY : clean fclean re print
 
