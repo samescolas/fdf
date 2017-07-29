@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/28 17:52:34 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 09:36:18 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../libs/minilibx/mlx.h"
 #include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
+#include "../includes/ft_atexit.h"
 
 int		main(int argc, char **argv)
 {
@@ -44,5 +45,6 @@ int		main(int argc, char **argv)
 		}
 		//mlx_loop(mlx);
 	}
+	ft_atexit();
 	return (0);
 }
