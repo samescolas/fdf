@@ -43,5 +43,6 @@ t_fdf			*fdf_init(
 unsigned short	**read_blueprint(
 		char *filepath, unsigned short *rows, unsigned short *cols);
 void			fdf_destroy_later(t_fdf *fdf, int loading);
+void			draw_line(void *mlx, void *win, int x0, int x1, int y0, int y1);
 
 #endif
