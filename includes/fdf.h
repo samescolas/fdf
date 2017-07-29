@@ -4,6 +4,8 @@
 # define MIN(a,b) (a < b ? a : b)
 # define MAX(a,b) (a > b ? a : b)
 
+# include <stdlib.h>
+
 typedef enum		e_bool
 {
 	FALSE,
@@ -36,7 +38,9 @@ typedef struct		s_fdf
 	unsigned short	bp_cols;
 }					t_fdf;
 
-void	draw_vertical_line(void *mlx, void *win, int x, int y0, int y1);
-void	draw_line(void *mlx, void *win, int x0, int x1, int y0, int y1);
+t_fdf			*fdf_init(
+		unsigned short width, unsigned short height, char *title, char *filepath);
+unsigned short	**read_blueprint(
+		char *filepath, unsigned short *rows, unsigned short *cols);
 
 #endif
