@@ -6,12 +6,13 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 14:08:44 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/28 14:26:49 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 09:32:39 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/libft/libft.h"
 #include "../includes/ft_atexit.h"
+#include "../includes/fdf.h"
 
 static void	resize_str_arr(char ***arr, int size, int buff_size)
 {
@@ -106,5 +107,6 @@ void		ft_atexit(void)
 {
 	ft_str_atexit(0, (void *)0);
 	ft_func_atexit(0, (void *)0);
+	fdf_destroy_later((void *)0, 0);
 	exit(0);
 }
