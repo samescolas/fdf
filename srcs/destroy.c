@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/29 09:10:35 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/29 09:45:55 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 10:02:06 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 static void	fdf_destroy_window(t_window *window)
 {
+	free(window->mlx);
 	window->mlx = (void *)0;
+	free(window->window);
 	window->window = (void *)0;
 	window->height = 0;
 	window->width = 0;
