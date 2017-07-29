@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/29 10:58:24 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 14:35:13 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,30 @@ void	print_grid2(t_fdf *fdf)
 {
 	int				i;
 	int				j;
+	int				scale;
+	t_point			*a;
+	t_point			*b;
 
+	scale = 10;
 	i = -1;
 	while (++i < fdf->bp_rows)
 	{
 		j = -1;
 		while (++j < fdf->bp_cols)
 		{
+			a = create_point(
+					create_coord(j*scale, i*scale, fdf->blueprint[i][j]),
+					create_color(255, 0, 0));
+			b = create_point(
+					create_coord((j*scale)+25, (i*scale)+25, fdf->blueprint[i][j]),
+					create_color(255, 255, 255));
 			if (fdf->blueprint[i][j])
-				draw_line(fdf->window->mlx, fdf->window->window, j*10, (j*10) + 10, (i*10), (i*10) + 10);
+				draw_line(fdf->window, *a, *b);
 		}
 	}
 }
 
-void	print_grid(unsigned short **grid, unsigned short rows, unsigned short cols)
+void	print_grid(short **grid, short rows, short cols)
 {
 	int				i;
 	int				j;

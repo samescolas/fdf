@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:57:27 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/29 10:59:27 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 13:25:38 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,22 @@ int				fdf_get_len(char *line)
 	return (len + 1);
 }
 
-unsigned short	*allocate_ushort_arr(int len)
+short	*allocate_ushort_arr(int len)
 {
-	unsigned short	*ret;
+	short	*ret;
 
-	if (!(ret = (unsigned short *)malloc(len * sizeof(unsigned short))))
+	if (!(ret = (short *)malloc(len * sizeof(short))))
 		ft_fatal("err: out of memory\n");
-	ft_bzero(ret, len * sizeof(unsigned short));
+	ft_putstr("allocating ");
+	ft_putnbr(len);
+	ft_putendl(" bytes");
+	ft_bzero(ret, len * sizeof(short));
 	return (ret);
 }
 
-unsigned short	*fdf_str_to_ushort_array(char *line, int len)
+short	*fdf_str_to_ushort_array(char *line, int len)
 {
-	unsigned short	*ret;
+	short	*ret;
 	char			*ptr;
 	int				i;
 
@@ -54,6 +57,8 @@ unsigned short	*fdf_str_to_ushort_array(char *line, int len)
 	{
 		while (*ptr && (*ptr < '0' || *ptr > '9'))
 			++ptr;
+		if (!*ptr)
+			break ;
 		if (ft_strncmp(ptr, "0x", 2) == 0)
 			ret[i++] = ft_atoi_hex(ptr + 2);
 		else
@@ -65,32 +70,34 @@ unsigned short	*fdf_str_to_ushort_array(char *line, int len)
 }
 
 void			resize_blueprint(
-		unsigned short ***blueprint,
-		unsigned short rows)
+		short ***blueprint,
+		short rows)
 {
-	unsigned short	**ret;
+	short	**ret;
 	int				i;
 
+	ft_putstr("entering resize\n");
 	if (!(ret =
-			(unsigned short **)malloc((rows + 100) * sizeof(unsigned short))))
+			(short **)malloc((rows + 100) * sizeof(short))))
 		ft_fatal("err: out of memory\n");
 	i = -1;
 	while (++i < rows)
 		ret[i] = (*blueprint)[i];
 	free(*blueprint);
 	*blueprint = ret;
+	ft_putstr("leaving resize\n");
 }
 
-unsigned short	**read_blueprint(
+short	**read_blueprint(
 		char *filepath,
-		unsigned short *rows,
-		unsigned short *cols)
+		short *rows,
+		short *cols)
 {
-	unsigned short	**blueprint;
+	short	**blueprint;
 	char			*line;
 	int				fd;
 
-	if (!(blueprint = (unsigned short **)malloc(100 * sizeof(unsigned short))))
+	if (!(blueprint = (short **)malloc(100 * sizeof(short))))
 		ft_fatal("err: out of memory\n");
 	if ((fd = open(filepath, O_RDONLY)) < 0)
 		ft_fatal("fdf: unable to open file\n");
@@ -98,9 +105,12 @@ unsigned short	**read_blueprint(
 	*cols = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
+		ft_putnbr(*rows);
+		ft_putstr(" ");
+		ft_putendl("looping...");
 		if (*cols == 0)
 			*cols = fdf_get_len(line);
-		if (*rows > 0 && *rows % 100 == 0)
+		if (*rows > 0 && (*rows + 1) % 100 == 0)
 			resize_blueprint(&blueprint, *rows);
 		blueprint[(*rows)++] = fdf_str_to_ushort_array(line, *cols);
 	}
