@@ -1,5 +1,15 @@
-#include <unistd.h>
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/28 17:57:27 by sescolas          #+#    #+#             */
+/*   Updated: 2017/07/28 17:58:44 by sescolas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
 
@@ -51,11 +61,13 @@ unsigned short	*fdf_str_to_ushort_array(char *line, int len)
 	return (ret);
 }
 
-void			resize_blueprint(unsigned short ***blueprint, unsigned short rows)
+void			resize_blueprint(
+		unsigned short ***blueprint,
+		unsigned short rows)
 {
 	unsigned short	**ret;
 	int				i;
-	
+
 	if (!(ret =
 			(unsigned short **)malloc((rows + 100) * sizeof(unsigned short))))
 		ft_fatal("err: out of memory\n");
