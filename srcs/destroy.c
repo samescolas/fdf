@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/29 09:10:35 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/29 10:02:06 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 13:24:36 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	fdf_destroy_window(t_window *window)
 {
 	free(window->mlx);
 	window->mlx = (void *)0;
-	free(window->window);
-	window->window = (void *)0;
+	free(window->win);
+	window->win= (void *)0;
 	window->height = 0;
 	window->width = 0;
 	free(window);
@@ -26,9 +26,9 @@ static void	fdf_destroy_window(t_window *window)
 }
 
 static void	fdf_destroy_blueprint(
-		unsigned short **blueprint,
-		unsigned short rows,
-		unsigned short cols)
+		short **blueprint,
+		short rows,
+		short cols)
 {
 	int		i;
 	int		j;
