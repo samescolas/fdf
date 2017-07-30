@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/29 14:35:13 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/29 17:03:32 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,32 @@ void	print_grid2(t_fdf *fdf)
 	while (++i < fdf->bp_rows)
 	{
 		j = -1;
-		while (++j < fdf->bp_cols)
+		while (++j < fdf->bp_cols - 1)
 		{
-			a = create_point(
-					create_coord(j*scale, i*scale, fdf->blueprint[i][j]),
-					create_color(255, 0, 0));
-			b = create_point(
-					create_coord((j*scale)+25, (i*scale)+25, fdf->blueprint[i][j]),
-					create_color(255, 255, 255));
-			if (fdf->blueprint[i][j])
+			if (i + 1 < fdf->bp_rows)
+			{
+				a = create_point(
+						create_coord(j, i, fdf->blueprint[i][j]),
+						create_color(255, 0, 0),
+				  		scale);
+				b = create_point(
+						create_coord(j, i + 1, fdf->blueprint[i][j]),
+						create_color(255, 0, 0),
+						scale);
 				draw_line(fdf->window, *a, *b);
+			}
+			if (j + 2 < fdf->bp_cols)
+			{
+				a = create_point(
+						create_coord(j, i, fdf->blueprint[i][j]),
+						create_color(255, 0, 0),
+						scale);
+				b = create_point(
+						create_coord(j + 1, i, fdf->blueprint[i][j]),
+						create_color(255, 0, 0),
+						scale);
+				draw_line(fdf->window, *a, *b);
+			}
 		}
 	}
 }
