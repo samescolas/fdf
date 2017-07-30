@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/29 13:42:53 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/30 12:29:56 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/30 12:48:58 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ t_point		*create_point(t_coord *coord, t_color *color, int scale)
 		ft_fatal("err: out of memory\n");
 	ret->pos = coord;
 	ret->col = color;
-	ret->px = ((float)(1.8 * ret->pos->x) / MAX(ret->pos->z, 1)) * scale;
-	ret->py = ((float)(1.8 * ret->pos->y) / MAX(ret->pos->z, 1)) * scale;
+//	ret->px = ((float)(ret->pos->x) / MAX(ret->pos->z, 1)) * scale;
+//	ret->py = ((float)(ret->pos->y) / MAX(ret->pos->z, 1)) * scale;
+	if (scale)
+		return (ret);
 	return (ret);
 }
 
