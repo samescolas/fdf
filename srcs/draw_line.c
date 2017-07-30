@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/30 12:31:12 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/30 12:52:33 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,16 @@ int		ft_gradient(t_color c1, t_color c2)
 	return (col_to_int(*ret));
 }
 
-/*
-void	draw_line(t_window *window, t_point a, t_point b, int scale)
+void	draw_line(t_window *window, t_point a, t_point b)
 {
 	int		x;
 	int		y;
 	float	err;
 	float	derr;
-	int		color;
-	int		pixel_count;
 
-	if (!scale)
-		return ;
 	if (a.pos->x == b.pos->x)
 	{
-		draw_vertical_line(window->mlx, window->win, a.pos->x, a.pos->y, b.pos->y);
+		draw_vertical_line(window->mlx, window->win, a.px, a.py, b.py);
 		return ;
 	}
 	derr = (MAX(a.pos->y, b.pos->y) - MIN(a.pos->y, b.pos->y))/
@@ -74,51 +69,10 @@ void	draw_line(t_window *window, t_point a, t_point b, int scale)
 	err = derr - 0.5;
 	y = MIN(a.pos->y, b.pos->y);
 	x = MIN(a.pos->x, b.pos->x) - 1;
-	color = col_to_int(*(a.col));
-	pixel_count = 0;
 	while (++x < MAX(a.pos->x, b.pos->x))
 	{
-		color  = ft_gradient(*(a.col), *(b.col));
 		a.col = int_to_col(ft_gradient((*a.col), *(b.col)));
-		mlx_pixel_put(window->mlx, window->win, x, y, color);
-		pixel_count += 1;
-		err = err + derr;
-		if (err > 0.5)
-		{
-			y += 1;
-			err -= 1;
-		}
-	}
-}
-*/
-
-void	draw_line(t_window *window, t_point a, t_point b)
-{
-	int		x;
-	int		y;
-	float	err;
-	float	derr;
-	int		color;
-	int		pixel_count;
-
-	if (a.px == b.px)
-	{
-		draw_vertical_line(window->mlx, window->win, a.px, a.py, b.py);
-		return ;
-	}
-	derr = (MAX(a.py, b.py) - MIN(a.py, b.py))/
-			(MAX(a.px, b.px) - MIN(a.px, b.px));
-	err = derr - 0.5;
-	y = MIN(a.py, b.py);
-	x = MIN(a.px, b.px) - 1;
-	color = col_to_int(*(a.col));
-	pixel_count = 0;
-	while (++x < MAX(a.px, b.px))
-	{
-		color  = ft_gradient(*(a.col), *(b.col));
-		a.col = int_to_col(ft_gradient((*a.col), *(b.col)));
-		mlx_pixel_put(window->mlx, window->win, x, y, color);
-		pixel_count += 1;
+		mlx_pixel_put(window->mlx, window->win, x, y, col_to_int(*(a.col)));
 		err = err + derr;
 		if (err > 0.5)
 		{
