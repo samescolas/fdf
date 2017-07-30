@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/29 17:01:57 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/30 12:31:12 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_vertical_line(void *mlx, void *win, int x, int y0, int y1)
 
 	y = y0 - 1;
 	while (++y <= y1)
-		mlx_pixel_put(mlx, win, x, y, 0xFFFFFF);
+		mlx_pixel_put(mlx, win, x, y, 0);
 }
 
 int		ft_gradient(t_color c1, t_color c2)
