@@ -56,6 +56,8 @@ typedef struct	s_point
 {
 	t_coord	*pos;
 	t_color	*col;
+	float	px;
+	float	py;
 }				t_point;
 
 t_fdf		*fdf_init(short width, short height, char *title, char *fp);
@@ -65,7 +67,7 @@ void		fdf_destroy_later(t_fdf *fdf, int loading);
 void		draw_line(t_window *window, t_point a, t_point b);
 
 t_coord		*create_coord(short x, short y, short z);
-t_point		*create_point(t_coord *coord, t_color *color);
+t_point		*create_point(t_coord *coord, t_color *color, int scale);
 t_color		*create_color(unsigned char r, unsigned char g, unsigned char b);
 t_color		*int_to_col(int color);
 int			col_to_int(t_color color);
