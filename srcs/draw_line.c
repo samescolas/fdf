@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/30 12:52:33 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/31 14:26:54 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int		ft_gradient(t_color c1, t_color c2)
 			ret->b = (ret->b - 11) % 255;
 	}
 	return (col_to_int(*ret));
+}
+
+void	swap_coord(t_point a, t_point b)
+{
+
 }
 
 void	draw_line(t_window *window, t_point a, t_point b)
