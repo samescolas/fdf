@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/30 12:52:47 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/31 13:53:10 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,6 @@ int		main(int argc, char **argv)
 		print_grid2(fdf);
 
 		mlx_loop(fdf->window->mlx);
-	}
-	else
-	{
-		ft_putnbr(ft_atoi_hex("11"));
 	}
 	ft_atexit();
 	return (0);
