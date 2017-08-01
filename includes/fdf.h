@@ -29,20 +29,11 @@ typedef struct	s_keys
 	int	escape:1;
 }				t_keys;
 
-typedef struct	s_fdf
-{
-	t_window	*window;
-	short		**blueprint;
-	t_keys		*keys;
-	short		bp_rows;
-	short		bp_cols;
-}				t_fdf;
-
 typedef struct	s_coord
 {
-	short	x;
-	short	y;
-	short	z;
+	float	x;
+	float	y;
+	float	z;
 }				t_coord;
 
 typedef struct	s_color
@@ -59,6 +50,21 @@ typedef struct	s_point
 	float	px;
 	float	py;
 }				t_point;
+
+typedef struct	s_fdf
+{
+	t_window	*window;
+	short		**blueprint;
+	t_keys		*keys;
+	short		bp_rows;
+	short		bp_cols;
+	float		near;
+	float		far;
+	short		z_min;
+	short		z_max;
+	t_coord		*scale;
+	t_coord		*translation;
+}				t_fdf;
 
 t_fdf		*fdf_init(short width, short height, char *title, char *fp);
 short		**read_blueprint(char *filepath, short *rows, short *cols);
