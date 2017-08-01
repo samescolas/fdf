@@ -3,6 +3,7 @@
 
 # define MIN(a,b) (a < b ? a : b)
 # define MAX(a,b) (a > b ? a : b)
+# define ABS(x) (x < 0 ? -1 * x : x)
 
 # include <stdlib.h>
 
@@ -70,7 +71,8 @@ t_fdf		*fdf_init(short width, short height, char *title, char *fp);
 short		**read_blueprint(char *filepath, short *rows, short *cols);
 void		fdf_destroy_later(t_fdf *fdf, int loading);
 //void		draw_line(void *mlx, void *win, int x0, int x1, int y0, int y1);
-void		draw_line(t_window *window, t_point a, t_point b);
+//void		draw_line(t_window *window, t_point a, t_point b);
+void		draw_line(t_window *window, float v1[3], float v2[3]);
 
 t_coord		*create_coord(short x, short y, short z);
 t_point		*create_point(t_coord *coord, t_color *color, int scale);
