@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/31 19:33:51 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/01 10:51:14 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,62 @@ void	draw_vertical_line(t_window *win, t_point a, t_point b)
 	}
 }
 
-void	draw_line(t_window *window, t_point a, t_point b)
+void	draw_line(t_window *window, float v1[3], float v2[3])
+{
+	int		x;
+	int		y;
+	int		dir;
+	float	delta[3];
+	float	err;
+	float	derr;
+	float	tmp;
+
+	if (v1[0] == v2[0])
+		return ;
+	if ((dir = (ABS(v1[0] - v2[0]) > ABS(v1[1] - v2[1]))))
+	{
+		tmp = v1[0];
+		v1[0] = v1[1];
+		v1[1] = tmp;
+		tmp = v2[0];
+		v2[0] = v2[1];
+		v2[1] = tmp;
+	}
+	if (v1[0] > v2[0])
+	{
+		tmp = v1[0];
+		v1[0] = v2[0];
+		v2[0] = tmp;
+		tmp = v1[1];
+		v1[1] = v2[1];
+		v2[1] = tmp;
+		tmp = v1[2];
+		v1[2] = v2[2];
+		v2[2] = tmp;
+	}
+	delta[0] = ABS(v2[0] - v1[0]);
+	delta[1] = ABS(v2[1] - v1[1]);
+	derr = delta[1] / delta[0];
+	err = derr - 0.5;
+
+	x = v1[0] - 1;
+	y = v1[1];
+	while (++x < v2[0])
+	{
+		if (dir)
+			mlx_pixel_put(window->mlx, window->win, y, x, 0xff);
+		else
+			mlx_pixel_put(window->mlx, window->win, x, y, 0xff);
+		err = err + derr;
+		if (err > 0.5)
+		{
+			y += 1;
+			err -= 1;
+		}
+	}
+}
+/*
+void	draw_line2(t_window *window, t_point a, t_point b)
 {
 	int		x;
 	int		y;
@@ -98,3 +153,4 @@ void	draw_line(t_window *window, t_point a, t_point b)
 		}
 	}
 }
+*/
