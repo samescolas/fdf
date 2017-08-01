@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/31 13:53:10 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/31 19:30:06 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../includes/fdf.h"
 #include "../includes/ft_atexit.h"
 
-void	print_grid2(t_fdf *fdf)
+void	plot_grid(t_fdf *fdf)
 {
 	int				i;
 	int				j;
@@ -35,7 +35,7 @@ void	print_grid2(t_fdf *fdf)
 			{
 				a = create_point(
 						create_coord(j, i, fdf->blueprint[i][j]),
-						create_color(0, 0, 0),
+						create_color(0, 255, 0),
 				  		scale);
 				b = create_point(
 						create_coord(j + 1, i + 1, fdf->blueprint[i + 1][j + 1]),
@@ -47,7 +47,7 @@ void	print_grid2(t_fdf *fdf)
 			{
 				a = create_point(
 						create_coord(j, i, fdf->blueprint[i][j]),
-						create_color(0, 0, 0),
+						create_color(0, 255, 0),
 				  		scale);
 				b = create_point(
 						create_coord(j, i + 1, fdf->blueprint[i + 1][j]),
@@ -59,7 +59,7 @@ void	print_grid2(t_fdf *fdf)
 			{
 				a = create_point(
 						create_coord(j, i, fdf->blueprint[i][j]),
-						create_color(0, 0, 0),
+						create_color(0, 255, 0),
 						scale);
 				b = create_point(
 						create_coord(j + 1, i, fdf->blueprint[i][j + 1]),
@@ -101,7 +101,7 @@ int		main(int argc, char **argv)
 	{
 		if (!(fdf = fdf_init(1200, 800, "Testing...", argv[1])))
 			return (0);
-		print_grid2(fdf);
+		plot_grid(fdf);
 
 		mlx_loop(fdf->window->mlx);
 	}

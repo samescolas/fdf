@@ -6,22 +6,13 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/31 14:26:54 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/07/31 19:33:51 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/minilibx/mlx.h"
 #include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
-
-void	draw_vertical_line(void *mlx, void *win, int x, int y0, int y1)
-{
-	int		y;
-
-	y = y0 - 1;
-	while (++y <= y1)
-		mlx_pixel_put(mlx, win, x, y, 0);
-}
 
 int		ft_gradient(t_color c1, t_color c2)
 {
@@ -52,9 +43,16 @@ int		ft_gradient(t_color c1, t_color c2)
 	return (col_to_int(*ret));
 }
 
-void	swap_coord(t_point a, t_point b)
+void	draw_vertical_line(t_window *win, t_point a, t_point b)
 {
+	int		y;
 
+	y = MIN(a.pos->y, b.pos->y) - 1;
+	while (++y <= MAX(a.pos->y, b.pos->y))
+	{
+		a.col = int_to_col(ft_gradient(*(a.col), *(b.col)));
+		mlx_pixel_put(win->mlx, win->win, a.pos->x, y, col_to_int(*(a.col)));
+	}
 }
 
 void	draw_line(t_window *window, t_point a, t_point b)
@@ -64,16 +62,30 @@ void	draw_line(t_window *window, t_point a, t_point b)
 	float	err;
 	float	derr;
 
+	if (a.pos->z != 0)
+	{
+		a.pos->x += 7;
+		a.pos->y += 7;
+		b.pos->x += 7;
+		b.pos->y += 7;
+	}
+	else if (b.pos->z != 0)
+	{
+		a.pos->x += 7;
+		a.pos->y += 7;
+		b.pos->x += 7;
+		b.pos->y += 7;
+	}
 	if (a.pos->x == b.pos->x)
 	{
-		draw_vertical_line(window->mlx, window->win, a.px, a.py, b.py);
+		draw_vertical_line(window, a, b);
 		return ;
 	}
 	derr = (MAX(a.pos->y, b.pos->y) - MIN(a.pos->y, b.pos->y))/
 			(MAX(a.pos->x, b.pos->x) - MIN(a.pos->x, b.pos->x));
 	err = derr - 0.5;
 	y = MIN(a.pos->y, b.pos->y);
-	x = MIN(a.pos->x, b.pos->x) - 1;
+	x = MIN(a.pos->x, b.pos->x);
 	while (++x < MAX(a.pos->x, b.pos->x))
 	{
 		a.col = int_to_col(ft_gradient((*a.col), *(b.col)));
