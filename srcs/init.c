@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:48:22 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/31 19:24:34 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/02 14:58:51 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ t_keys	*create_keylist(void)
 	return (ret);
 }
 
-t_fdf	*fdf_init(
-		short width,
-		short height,
-		char *title,
-		char *filepath)
+t_fdf	*fdf_init(short width, short height, char *title, char *filepath)
 {
 	t_fdf	*ret;
 
@@ -42,12 +38,20 @@ t_fdf	*fdf_init(
 		ret->window->win=
 			mlx_new_window(ret->window->mlx, width, height, title);
 		ret->window->height = height;
+		ret->window->width = width;
 		if (!(ret->blueprint = read_blueprint(filepath, &ret->bp_rows, &ret->bp_cols)))
 		{
 			free(ret);
 			ft_fatal("err: out of memory\n");
 		}
 		ret->keys = create_keylist();
+		ret->near = 1;
+		ret->far = 3;
+		ret->fov = 80;
+		ret->scale = create_coord(42, 42, 0.2);
+		ret->translation = create_coord(
+				width / 2 - ret->bp_cols * 42 / 2,
+				height / 2 - ret->bp_rows * 42 / 2, 0);
 	}
 	fdf_destroy_later(ret, 1);
 	return (ret);
