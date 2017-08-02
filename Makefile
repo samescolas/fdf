@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFT = libs/libft/libft.a
 LIB_DEPS = $(shell ls libft/*.c$)
 
-TO_LINK = ft mlx
+TO_LINK = ft mlx m
 LINK = -Llibs/libft -Llibs/minilibx $(foreach LIB,$(TO_LINK), -l$(LIB))
 
 HEADERS = $(wildcard includes/*.h$)
