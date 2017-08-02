@@ -61,6 +61,9 @@ typedef struct	s_fdf
 	short		bp_cols;
 	float		near;
 	float		far;
+	float		fov;
+	short		width;
+	short		height;
 	short		z_min;
 	short		z_max;
 	t_coord		*scale;
@@ -74,7 +77,7 @@ void		fdf_destroy_later(t_fdf *fdf, int loading);
 //void		draw_line(t_window *window, t_point a, t_point b);
 void		draw_line(t_window *window, float v1[3], float v2[3]);
 
-t_coord		*create_coord(short x, short y, short z);
+t_coord		*create_coord(float x, float y, float z);
 t_point		*create_point(t_coord *coord, t_color *color, int scale);
 t_color		*create_color(unsigned char r, unsigned char g, unsigned char b);
 t_color		*int_to_col(int color);
