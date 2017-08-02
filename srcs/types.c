@@ -6,24 +6,22 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/29 13:42:53 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/31 19:25:30 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/02 12:42:04 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 #include "../libs/libft/libft.h"
 
-t_coord		*create_coord(short x, short y, short z)
+t_coord		*create_coord(float x, float y, float z)
 {
 	t_coord	*ret;
-	int		scale;
 
 	if (!(ret = (t_coord *)malloc(sizeof(t_coord))))
 		ft_fatal("err: out of memory\n");
-	scale = 25;
-	ret->x = x * scale;
-	ret->y = y * scale;
-	ret->z = z * scale;
+	ret->x = x;
+	ret->y = y;
+	ret->z = z;
 	return (ret);
 }
 
