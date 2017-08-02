@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/02 14:56:12 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/02 15:13:23 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	plot_grid(t_fdf *fdf)
 				fill_vec(v1, j, i, fdf->blueprint[i][j]);
 				fill_vec(v2, j + 1, i + 1, fdf->blueprint[i + 1][j + 1]);
 				model_to_world(*fdf, v1, v2);
-				//world_to_view(*fdf, v1, v2);
+				world_to_view(*fdf, v1, v2);
 				draw_line(fdf->window, v1, v2);
 			}
 			if (i + 1 < fdf->bp_rows)
@@ -80,7 +80,7 @@ void	plot_grid(t_fdf *fdf)
 				fill_vec(v1, j, i, fdf->blueprint[i][j]);
 				fill_vec(v2, j, i + 1, fdf->blueprint[i + 1][j]);
 				model_to_world(*fdf, v1, v2);
-				//world_to_view(*fdf, v1, v2);
+				world_to_view(*fdf, v1, v2);
 				draw_line(fdf->window, v1, v2);
 			}
 			if (j + 2 < fdf->bp_cols)
@@ -88,7 +88,7 @@ void	plot_grid(t_fdf *fdf)
 				fill_vec(v1, j, i, fdf->blueprint[i][j]);
 				fill_vec(v2, j + 1, i, fdf->blueprint[i][j + 1]);
 				model_to_world(*fdf, v1, v2);
-				//world_to_view(*fdf, v1, v2);
+				world_to_view(*fdf, v1, v2);
 				draw_line(fdf->window, v1, v2);
 			}
 		}
@@ -126,7 +126,8 @@ int		main(int argc, char **argv)
 		if (!(fdf = fdf_init(1200, 800, "Testing...", argv[1])))
 			return (0);
 		plot_grid(fdf);
-
+		fdf->translation->y += 10;
+		plot_grid(fdf);
 		mlx_loop(fdf->window->mlx);
 	}
 	ft_atexit();
