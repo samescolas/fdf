@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/01 10:51:14 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/02 14:39:06 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,15 @@ int		ft_gradient(t_color c1, t_color c2)
 	return (col_to_int(*ret));
 }
 
-void	draw_vertical_line(t_window *win, t_point a, t_point b)
+void	draw_vertical_line(t_window *win, float v1[3], float v2[3])
 {
-	int		y;
+	int		y1;
+	int		y2;
 
-	y = MIN(a.pos->y, b.pos->y) - 1;
-	while (++y <= MAX(a.pos->y, b.pos->y))
-	{
-		a.col = int_to_col(ft_gradient(*(a.col), *(b.col)));
-		mlx_pixel_put(win->mlx, win->win, a.pos->x, y, col_to_int(*(a.col)));
-	}
+	y1 = MIN(v1[1], v2[1]) - 1;
+	y2 = MAX(v1[1], v2[1]);
+	while (++y1 < y2)
+		mlx_pixel_put(win->mlx, win->win, v1[0], y1, 0xff);
 }
 
 void	draw_line(t_window *window, float v1[3], float v2[3])
@@ -66,7 +65,10 @@ void	draw_line(t_window *window, float v1[3], float v2[3])
 	float	tmp;
 
 	if (v1[0] == v2[0])
-		return ;
+	{
+		draw_vertical_line(window, v1, v2);
+		return ; 
+	}
 	if ((dir = (ABS(v1[0] - v2[0]) > ABS(v1[1] - v2[1]))))
 	{
 		tmp = v1[0];
