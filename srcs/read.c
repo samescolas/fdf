@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input2.c                                           :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:57:27 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/31 14:16:42 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/03 09:29:56 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ short	*allocate_ushort_arr(int len)
 	return (ret);
 }
 
-short	*fdf_str_to_ushort_array(char *line, int len)
+short	*fdf_str_to_ushort_array(char *line, int len, short z_minmax[2])
 {
 	short	*ret;
 	char	*ptr;
@@ -57,21 +57,23 @@ short	*fdf_str_to_ushort_array(char *line, int len)
 	ptr = line;
 	while (*ptr)
 	{
-		while (*ptr && (*ptr < '0' || *ptr > '9'))
+		while (*ptr && *ptr != '-' && (*ptr < '0' || *ptr > '9'))
 			++ptr;
 		if (!*ptr)
 			break ;
-		if (ft_strncmp(ptr, "0x", 2) == 0)
-			ret[i++] = ft_atoi_hex(ptr + 2);
-		else
-			ret[i++] = ft_atoi(ptr);
-		while (*ptr && (*ptr >= '0' && *ptr <= '9'))
+		ret[i] = ft_atoi(ptr);
+		if (ret[i] > z_minmax[1])
+			z_minmax[1] = ret[i];
+		if (ret[i] < z_minmax[0])
+			z_minmax[0] = ret[i];
+		while (*ptr && (*ptr == '-' || (*ptr >= '0' && *ptr <= '9')))
 			++ptr;
+		++i;
 	}
 	return (ret);
 }
 
-short	**read_blueprint(char *filepath, short *rows, short *cols)
+short	**read_blueprint(char *filepath, short *rows, short *cols, short z_minmax[2])
 {
 	short	**blueprint;
 	char	*line;
@@ -89,10 +91,10 @@ short	**read_blueprint(char *filepath, short *rows, short *cols)
 		ft_fatal("err: unable to open file\n");
 	if (!(blueprint = (short **)malloc(*cols * sizeof(short *))))
 		ft_fatal("err: out of memory\n");
+	z_minmax[0] = 0;
+	z_minmax[1] = 0;
 	i = -1;
 	while (get_next_line(fd, &line) > 0)
-	{
-		blueprint[++i] = fdf_str_to_ushort_array(line, *cols);
-	}
+		blueprint[++i] = fdf_str_to_ushort_array(line, *cols, z_minmax);
 	return (blueprint);
 }
