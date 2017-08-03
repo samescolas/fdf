@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/02 14:39:06 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/03 15:11:17 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
 
-int		ft_gradient(t_color c1, t_color c2)
+int		ft_gradient(t_color c1, t_color c2, int step)
 {
 	t_color	*ret;
 
@@ -22,23 +22,23 @@ int		ft_gradient(t_color c1, t_color c2)
 	if (c1.r - c2.r != 0)
 	{
 		if (c1.r > c2.r)
-			ret->r = (ret->r + 11) % 255;
+			ret->r = (ret->r + step) % 255;
 		else
-			ret->r = (ret->r - 11) % 255;
+			ret->r = (ret->r - step) % 255;
 	}
 	else if (c1.g - c2.g != 0)
 	{
 		if (c1.g > c2.g)
-			ret->g = (ret->g + 11) % 255;
+			ret->g = (ret->g + step) % 255;
 		else
-			ret->g = (ret->g - 11) % 255;
+			ret->g = (ret->g - step) % 255;
 	}
 	else if (c1.b - c2.b != 0)
 	{
 		if (c1.b > c2.b)
-			ret->b = (ret->b + 11) % 255;
+			ret->b = (ret->b + step) % 255;
 		else
-			ret->b = (ret->b - 11) % 255;
+			ret->b = (ret->b - step) % 255;
 	}
 	return (col_to_int(*ret));
 }
@@ -51,19 +51,32 @@ void	draw_vertical_line(t_window *win, float v1[3], float v2[3])
 	y1 = MIN(v1[1], v2[1]) - 1;
 	y2 = MAX(v1[1], v2[1]);
 	while (++y1 < y2)
-		mlx_pixel_put(win->mlx, win->win, v1[0], y1, 0xff);
+		mlx_pixel_put(win->mlx, win->win, v1[0], y1, 0xff0000);
 }
 
-void	draw_line(t_window *window, float v1[3], float v2[3])
+void	swap_vertices(float *v1, float *v2)
+{
+	float	*tmp;
+
+	tmp = v1;
+	v1 = v2;
+	v2 = tmp;
+}
+
+void	draw_line(t_fdf fdf, float v1[3], float v2[3])
 {
 	int		x;
 	int		y;
+	int		z;
 	int		dir;
+	int		inc;
 	float	delta[3];
 	float	err;
 	float	derr;
 	float	tmp;
+	t_window 	*window;
 
+	window = fdf.window;
 	if (v1[0] == v2[0])
 	{
 		draw_vertical_line(window, v1, v2);
@@ -79,17 +92,7 @@ void	draw_line(t_window *window, float v1[3], float v2[3])
 		v2[1] = tmp;
 	}
 	if (v1[0] > v2[0])
-	{
-		tmp = v1[0];
-		v1[0] = v2[0];
-		v2[0] = tmp;
-		tmp = v1[1];
-		v1[1] = v2[1];
-		v2[1] = tmp;
-		tmp = v1[2];
-		v1[2] = v2[2];
-		v2[2] = tmp;
-	}
+		swap_vertices(v1, v2);
 	delta[0] = ABS(v2[0] - v1[0]);
 	delta[1] = ABS(v2[1] - v1[1]);
 	derr = delta[1] / delta[0];
@@ -97,62 +100,23 @@ void	draw_line(t_window *window, float v1[3], float v2[3])
 
 	x = v1[0] - 1;
 	y = v1[1];
+	z = v1[2];
+	inc = (z > v2[2]);
 	while (++x < v2[0])
 	{
 		if (dir)
-			mlx_pixel_put(window->mlx, window->win, y, x, 0xff);
+			mlx_pixel_put(window->mlx, window->win, y, x, 0xff0000);
 		else
-			mlx_pixel_put(window->mlx, window->win, x, y, 0xff);
+			mlx_pixel_put(window->mlx, window->win, x, y, 0xff0000);
 		err = err + derr;
 		if (err > 0.5)
 		{
+			if (inc)
+				z += 1;
+			else
+				z -= 1;
 			y += 1;
 			err -= 1;
 		}
 	}
 }
-/*
-void	draw_line2(t_window *window, t_point a, t_point b)
-{
-	int		x;
-	int		y;
-	float	err;
-	float	derr;
-
-	if (a.pos->z != 0)
-	{
-		a.pos->x += 7;
-		a.pos->y += 7;
-		b.pos->x += 7;
-		b.pos->y += 7;
-	}
-	else if (b.pos->z != 0)
-	{
-		a.pos->x += 7;
-		a.pos->y += 7;
-		b.pos->x += 7;
-		b.pos->y += 7;
-	}
-	if (a.pos->x == b.pos->x)
-	{
-		draw_vertical_line(window, a, b);
-		return ;
-	}
-	derr = (MAX(a.pos->y, b.pos->y) - MIN(a.pos->y, b.pos->y))/
-			(MAX(a.pos->x, b.pos->x) - MIN(a.pos->x, b.pos->x));
-	err = derr - 0.5;
-	y = MIN(a.pos->y, b.pos->y);
-	x = MIN(a.pos->x, b.pos->x);
-	while (++x < MAX(a.pos->x, b.pos->x))
-	{
-		a.col = int_to_col(ft_gradient((*a.col), *(b.col)));
-		mlx_pixel_put(window->mlx, window->win, x, y, col_to_int(*(a.col)));
-		err = err + derr;
-		if (err > 0.5)
-		{
-			y += 1;
-			err -= 1;
-		}
-	}
-}
-*/
