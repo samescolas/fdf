@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 08:43:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/03 15:40:57 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/03 16:13:33 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,20 @@ static void	rotate_xyz(t_fdf fdf, float v1[3], float v2[3])
 		v1[0] * (sin(a.x) * sin(a.y) * cos(a.z) + cos(a.x) * sin(a.z)) -
 		v1[1] * (-1 * sin(a.x) * sin(a.y) * sin(a.z) + cos(a.x) * cos(a.z)) -
 		v1[2] * sin(a.x) * cos(a.y);
+	v1[2] =
+		-1 * v1[0] * (cos(a.x) * sin(a.y) * cos(a.z) + sin(a.x) * sin(a.z))
+		- v1[1] * (cos(a.x) * sin(a.y) * sin(a.z) + sin(a.x) * cos(a.z)) +
+		v1[2] * cos(a.x) * cos(a.y);
 
 	v2[0] = v2[0] * cos(a.y) * cos(a.z) - v2[1] * cos(a.y) * sin(a.z) + v2[2] * sin(a.y);
 	v2[1] = 
 		v2[0] * (sin(a.x) * sin(a.y) * cos(a.z) + cos(a.x) * sin(a.z)) -
 		v2[1] * (-1 * sin(a.x) * sin(a.y) * sin(a.z) + cos(a.x) * cos(a.z)) -
 		v2[2] * sin(a.x) * cos(a.y);
+	v2[2] =
+		-1 * v2[0] * (cos(a.x) * sin(a.y) * cos(a.z) + sin(a.x) * sin(a.z))
+		- v2[1] * (cos(a.x) * sin(a.y) * sin(a.z) + sin(a.x) * cos(a.z)) +
+		v2[2] * cos(a.x) * cos(a.y);
 }
 
 static void	normalize(t_fdf fdf, float v1[3], float v2[3])
