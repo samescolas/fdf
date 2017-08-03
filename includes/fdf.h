@@ -64,15 +64,17 @@ typedef struct	s_fdf
 	float		fov;
 	short		width;
 	short		height;
-	short		z_min;
-	short		z_max;
+	short		z_minmax[2];
 	t_coord		*scale;
 	t_coord		*translation;
 }				t_fdf;
 
 t_fdf		*fdf_init(short width, short height, char *title, char *fp);
-short		**read_blueprint(char *filepath, short *rows, short *cols);
+short		**read_blueprint(char *filepath, short *rows, short *cols, short z_minmax[2]);
 void		fdf_destroy_later(t_fdf *fdf, int loading);
+
+void		plot_grid(t_fdf *fdf);
+
 //void		draw_line(void *mlx, void *win, int x0, int x1, int y0, int y1);
 //void		draw_line(t_window *window, t_point a, t_point b);
 void		draw_line(t_window *window, float v1[3], float v2[3]);
