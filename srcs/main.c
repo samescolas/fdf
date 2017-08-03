@@ -6,15 +6,12 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/03 09:47:43 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/03 12:28:43 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include "../libs/minilibx/mlx.h"
-#include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
 #include "../includes/ft_atexit.h"
 
@@ -48,8 +45,10 @@ int		main(int argc, char **argv)
 	{
 		if (!(fdf = fdf_init(1200, 800, "Testing...", argv[1])))
 			return (0);
-		plot_grid(fdf);
-		print_grid(fdf->blueprint, fdf->bp_rows, fdf->bp_cols);
+		mlx_expose_hook(fdf->window->win, &display_loop, fdf);
+		//plot_grid(fdf);
+		//print_grid(fdf->blueprint, fdf->bp_rows, fdf->bp_cols);
+		mlx_key_hook(fdf->window->win, &keypress, fdf);
 		mlx_loop(fdf->window->mlx);
 	}
 	ft_atexit();
