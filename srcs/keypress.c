@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 12:26:37 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/03 15:48:53 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/03 16:05:09 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int		keypress(int key, t_fdf	*fdf)
 		fdf->scale->x -= 0.5;
 		fdf->scale->y -= 0.5;
 	}
+	else if (key == 4)
+		fdf->scale->z += 0.5;
+	else if (key == 5)
+		fdf->scale->z -= 0.5;
 	else
 		ft_putnbr(key);
 	return (display_loop(fdf));
