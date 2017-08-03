@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/28 17:48:22 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/02 14:58:51 by sescolas         ###   ########.fr       */
+/*   Created: 2017/08/03 09:49:05 by sescolas          #+#    #+#             */
+/*   Updated: 2017/08/03 10:16:47 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_fdf	*fdf_init(short width, short height, char *title, char *filepath)
 			mlx_new_window(ret->window->mlx, width, height, title);
 		ret->window->height = height;
 		ret->window->width = width;
-		if (!(ret->blueprint = read_blueprint(filepath, &ret->bp_rows, &ret->bp_cols)))
+		if (!(ret->blueprint =
+			read_blueprint(filepath, &ret->bp_rows, &ret->bp_cols, ret->z_minmax)))
 		{
 			free(ret);
 			ft_fatal("err: out of memory\n");
@@ -48,10 +49,10 @@ t_fdf	*fdf_init(short width, short height, char *title, char *filepath)
 		ret->near = 1;
 		ret->far = 3;
 		ret->fov = 80;
-		ret->scale = create_coord(42, 42, 0.2);
+		ret->scale = create_coord(25, 25, 0.1);
 		ret->translation = create_coord(
-				width / 2 - ret->bp_cols * 42 / 2,
-				height / 2 - ret->bp_rows * 42 / 2, 0);
+				width / 25 - ret->bp_cols * 25 / 2,
+				height / 25 - ret->bp_rows * 25 / 2, 0);
 	}
 	fdf_destroy_later(ret, 1);
 	return (ret);
