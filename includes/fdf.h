@@ -5,7 +5,15 @@
 # define MAX(a,b) (a > b ? a : b)
 # define ABS(x) (x < 0 ? -1 * x : x)
 
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_UP 126
+# define KEY_DOWN 125
+
 # include <stdlib.h>
+# include <math.h>
+# include "../libs/minilibx/mlx.h"
+# include "../libs/libft/libft.h"
 
 typedef enum	e_bool
 {
@@ -67,6 +75,7 @@ typedef struct	s_fdf
 	short		z_minmax[2];
 	t_coord		*scale;
 	t_coord		*translation;
+	t_coord		*rotation;
 }				t_fdf;
 
 t_fdf		*fdf_init(short width, short height, char *title, char *fp);
@@ -75,9 +84,12 @@ void		fdf_destroy_later(t_fdf *fdf, int loading);
 
 void		plot_grid(t_fdf *fdf);
 
+int			keypress(int key, t_fdf *fdf);
+int			display_loop(t_fdf *fdf);
+
 //void		draw_line(void *mlx, void *win, int x0, int x1, int y0, int y1);
 //void		draw_line(t_window *window, t_point a, t_point b);
-void		draw_line(t_window *window, float v1[3], float v2[3]);
+void		draw_line(t_fdf fdf, float v1[3], float v2[3]);
 
 t_coord		*create_coord(float x, float y, float z);
 t_point		*create_point(t_coord *coord, t_color *color, int scale);
