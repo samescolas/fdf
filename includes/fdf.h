@@ -67,9 +67,6 @@ typedef struct	s_fdf
 	t_keys		*keys;
 	short		bp_rows;
 	short		bp_cols;
-	float		near;
-	float		far;
-	float		fov;
 	short		width;
 	short		height;
 	short		z_minmax[2];
