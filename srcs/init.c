@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 09:49:05 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/03 19:07:05 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/04 11:06:52 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_fdf	*fdf_init(short width, short height, char *title, char *filepath)
 		ret->keys = create_keylist();
 		ret->scale = create_coord(20, 20, -0.25);
 		ret->translation = create_coord(150, 150, 0);
-		ret->rotation = create_coord(0, 0, 0); //179.2, 0.3, 0);
+		ret->rotation = create_coord(0, 0, 0);
 	}
 	fdf_destroy_later(ret, 1);
 	return (ret);
