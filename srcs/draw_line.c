@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/03 15:11:17 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/03 19:41:04 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_vertical_line(t_window *win, float v1[3], float v2[3])
 	y1 = MIN(v1[1], v2[1]) - 1;
 	y2 = MAX(v1[1], v2[1]);
 	while (++y1 < y2)
-		mlx_pixel_put(win->mlx, win->win, v1[0], y1, 0xff0000);
+		mlx_pixel_put(win->mlx, win->win, v1[0], y1, 0xff);
 }
 
 void	swap_vertices(float *v1, float *v2)
@@ -65,16 +65,65 @@ void	swap_vertices(float *v1, float *v2)
 
 void	draw_line(t_fdf fdf, float v1[3], float v2[3])
 {
+	float 	delta[3];
+	float	p;
 	int		x;
 	int		y;
-	int		z;
 	int		dir;
-	int		inc;
+
+	delta[0] = ABS(v1[0] - v2[0]);
+	delta[1] = ABS(v1[1] - v2[1]);
+
+	p = 2 * delta[1] - delta[0];
+	if (v1[0] > v2[0])
+		swap_vertices(v1, v2);
+	if (v1[1] > v2[1])
+		dir = -1;
+	else
+		dir = 1;
+	x = v1[0];
+	y = v1[1];
+	while (x <= v2[0])
+	{
+		if (p < 0)
+		{
+			x = x + 1;
+			p = p + 2 * delta[1];
+		}
+		else
+		{
+			x = x + 1;
+			y = y + dir;
+			p = p + 2 * (delta[1] - delta[0]);
+		}
+		mlx_pixel_put(fdf.window->mlx, fdf.window->win, y, x, 0xff);
+	}
+}
+/*
+void	draw_line(t_fdf fdf, float v1[3], float v2[3])
+{
+	int		x;
+	int		y;
+	int		dir;
 	float	delta[3];
 	float	err;
 	float	derr;
 	float	tmp;
 	t_window 	*window;
+
+	ft_putstr("drawing line betweein (");
+	ft_putnbr((int)v1[0]);
+	ft_putstr(", ");
+	ft_putnbr((int)v1[1]);
+	ft_putstr(", ");
+	ft_putnbr((int)v1[2]);
+	ft_putstr(") and (");
+	ft_putnbr((int)v2[0]);
+	ft_putstr(", ");
+	ft_putnbr((int)v2[1]);
+	ft_putstr(", ");
+	ft_putnbr((int)v2[2]);
+	ft_putendl(")");
 
 	window = fdf.window;
 	if (v1[0] == v2[0])
@@ -82,7 +131,7 @@ void	draw_line(t_fdf fdf, float v1[3], float v2[3])
 		draw_vertical_line(window, v1, v2);
 		return ; 
 	}
-	if ((dir = (ABS(v1[0] - v2[0]) > ABS(v1[1] - v2[1]))))
+	if ((dir = (ABS(v1[0] - v1[1]) > ABS(v2[0] - v2[1]))))
 	{
 		tmp = v1[0];
 		v1[0] = v1[1];
@@ -100,23 +149,18 @@ void	draw_line(t_fdf fdf, float v1[3], float v2[3])
 
 	x = v1[0] - 1;
 	y = v1[1];
-	z = v1[2];
-	inc = (z > v2[2]);
 	while (++x < v2[0])
 	{
 		if (dir)
-			mlx_pixel_put(window->mlx, window->win, y, x, 0xff0000);
+			mlx_pixel_put(window->mlx, window->win, y, x, 0xff);
 		else
-			mlx_pixel_put(window->mlx, window->win, x, y, 0xff0000);
+			mlx_pixel_put(window->mlx, window->win, x, y, 0xff);
 		err = err + derr;
 		if (err > 0.5)
 		{
-			if (inc)
-				z += 1;
-			else
-				z -= 1;
 			y += 1;
 			err -= 1;
 		}
 	}
 }
+*/
