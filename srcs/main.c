@@ -6,12 +6,11 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 14:40:57 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:08:48 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-#include "../includes/ft_atexit.h"
 
 static int	read_colors(int colors[2], char *col_string)
 {

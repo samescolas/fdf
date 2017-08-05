@@ -6,12 +6,11 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/29 13:42:53 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 17:01:10 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:10:09 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-#include "../libs/libft/libft.h"
 
 t_coord		*create_coord(float x, float y, float z)
 {

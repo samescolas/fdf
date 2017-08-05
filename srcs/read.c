@@ -6,14 +6,13 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:57:27 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/03 18:02:12 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:09:37 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
 
-void	fdf_get_dims(int fd, short *rows, short *cols)
+static void		fdf_get_dims(int fd, short *rows, short *cols)
 {
 	char	*line;
 	int		i;
@@ -36,7 +35,7 @@ void	fdf_get_dims(int fd, short *rows, short *cols)
 	ft_strdel(&line);
 }
 
-short	*allocate_ushort_arr(int len)
+static short	*allocate_ushort_arr(int len)
 {
 	short	*ret;
 
@@ -46,7 +45,7 @@ short	*allocate_ushort_arr(int len)
 	return (ret);
 }
 
-short	*fdf_str_to_ushort_array(char *line, int len, short z_minmax[2])
+static short	*fdf_str_to_ushort_array(char *line, int len, short z_minmax[2])
 {
 	short	*ret;
 	char	*ptr;
@@ -73,7 +72,7 @@ short	*fdf_str_to_ushort_array(char *line, int len, short z_minmax[2])
 	return (ret);
 }
 
-short	**read_blueprint(
+short			**read_blueprint(
 		char *filepath, short *rows, short *cols, short z_minmax[2])
 {
 	short	**blueprint;

@@ -6,11 +6,10 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 14:08:44 by sescolas          #+#    #+#             */
-/*   Updated: 2017/07/29 09:32:39 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:07:36 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/libft.h"
 #include "../includes/ft_atexit.h"
 #include "../includes/fdf.h"
 

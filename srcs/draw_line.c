@@ -6,14 +6,10 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 10:55:26 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:07:12 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-#include "../libs/minilibx/mlx.h"
-#include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
 
 static int		dist(int x1, int x2, int y1, int y2)

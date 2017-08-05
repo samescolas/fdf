@@ -6,13 +6,11 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 09:49:05 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 14:45:36 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:08:17 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-#include "../libs/libft/libft.h"
-#include "../libs/minilibx/mlx.h"
 
 static void	assign_initial_position(t_fdf *fdf)
 {
@@ -31,7 +29,7 @@ void		assign_colors(t_fdf *fdf, int c1, int c2)
 	fdf->colors[1] = *tmp;
 }
 
-void		create_keys(t_fdf *fdf)
+static void	create_keys(t_fdf *fdf)
 {
 	t_keys	*keys;
 
@@ -41,7 +39,7 @@ void		create_keys(t_fdf *fdf)
 	fdf->keys = keys;
 }
 
-void		create_window(t_fdf *fdf, short width, short height, char *title)
+static void	create_window(t_fdf *fdf, short width, short height, char *title)
 {
 	t_window	*window;
 

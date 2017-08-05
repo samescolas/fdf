@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 08:43:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 14:32:14 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:06:52 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	transform_and_draw(t_fdf *fdf, int x, int y, int vert)
 	draw_line(*fdf, v1, v2);
 }
 
-void		plot_grid(t_fdf *fdf)
+static void	plot_grid(t_fdf *fdf)
 {
 	int				row;
 	int				col;
