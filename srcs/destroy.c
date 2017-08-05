@@ -6,12 +6,13 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/29 09:10:35 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 17:57:24 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 14:38:59 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/libft/libft.h"
 #include "../includes/fdf.h"
+#include "../includes/ft_atexit.h"
 
 static void	fdf_destroy_window(t_window *window)
 {
@@ -54,6 +55,8 @@ static void	fdf_destroy(t_fdf *fdf)
 	fdf_destroy_blueprint(fdf->blueprint, fdf->bp_rows, fdf->bp_cols);
 	fdf->bp_rows = 0;
 	fdf->bp_cols = 0;
+	free(fdf->keys);
+	fdf->keys = (void *)0;
 	free(fdf);
 	fdf = (void *)0;
 }
@@ -72,4 +75,12 @@ void		fdf_destroy_later(t_fdf *fdf, int loading)
 		if (fdf_store != (void *)0)
 			fdf_destroy(fdf_store);
 	}
+}
+
+int			exit_hook(t_fdf *fdf)
+{
+	if (fdf->blueprint)
+		ft_atexit();
+	ft_atexit();
+	return (0);
 }
