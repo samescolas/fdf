@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 19:31:13 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/04 19:35:22 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int			main(int argc, char **argv)
 	int				colors[2];
 	char			*fp;
 
-	colors[0] = 0;
 	if (argc == 4 && ft_strcmp(argv[1], "-c") == 0)
 	{
 		if (read_colors(colors, argv[2]) < 0)
@@ -39,7 +38,7 @@ int			main(int argc, char **argv)
 	}
 	else
 		fp = argv[1];
-	if (argc == 2 || (argc == 4 && colors[0] != 0))
+	if (argc == 2 || argc == 4)
 	{
 		if (!(fdf = fdf_init(1200, 800, "Testing...", fp)))
 			return (0);
