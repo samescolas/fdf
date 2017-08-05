@@ -6,9 +6,11 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 10:06:03 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 10:55:26 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 #include "../libs/minilibx/mlx.h"
 #include "../libs/libft/libft.h"
@@ -26,7 +28,7 @@ static int		choose_color(t_fdf fdf, float v1[3], float v2[3], int d)
 	int			direction;
 	t_color		*ret;
 
-	direction = (v1[1] < v2[1]);
+	direction = (fabs(v1[1] - v2[1]) < fabs(v1[0] - v2[0]));
 	if (v2[2] == 0 && v1[2] == 0)
 		return (col_to_int(fdf.colors[0]));
 	else if (v1[2] - v2[2] == 0)
@@ -47,6 +49,21 @@ static int		choose_color(t_fdf fdf, float v1[3], float v2[3], int d)
 	return (col_to_int(*ret));
 }
 
+static void		swap_vertices(float *v1, float *v2)
+{
+	float	tmp;
+
+	tmp = v1[0];
+	v1[0] = v2[0];
+	v2[0] = tmp;
+	tmp = v1[1];
+	v1[1] = v2[1];
+	v2[1] = tmp;
+	tmp = v1[2];
+	v1[2] = v2[2];
+	v2[2] = tmp;
+}
+
 static void		draw(t_fdf fdf, float v1[3], float v2[3], int info[2])
 {
 	int		x;
@@ -54,11 +71,10 @@ static void		draw(t_fdf fdf, float v1[3], float v2[3], int info[2])
 	float	slope;
 	float	err;
 
-	x = (int)v1[0];
-	y = (int)v1[1];
 	slope = ABS((v2[1] - v1[1]) / (v2[0] - v1[0]));
 	err = slope - 0.5;
 	x = v1[0] - 1;
+	y = (int)v1[1];
 	while (++x < v2[0])
 	{
 		if (info[0])
@@ -74,15 +90,6 @@ static void		draw(t_fdf fdf, float v1[3], float v2[3], int info[2])
 			err -= 1;
 		}
 	}
-}
-
-static void		swap_vertices(float *v1, float *v2)
-{
-	float	*tmp;
-
-	tmp = v1;
-	v1 = v2;
-	v2 = tmp;
 }
 
 /*
