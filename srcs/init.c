@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 09:49:05 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 19:19:42 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 14:45:36 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,47 @@ void		assign_colors(t_fdf *fdf, int c1, int c2)
 	fdf->colors[1] = *tmp;
 }
 
+void		create_keys(t_fdf *fdf)
+{
+	t_keys	*keys;
+
+	if (!(keys = (t_keys *)malloc(sizeof(t_keys))))
+		ft_fatal("err: out of memory\n");
+	ft_bzero(keys, sizeof(keys));
+	fdf->keys = keys;
+}
+
+void		create_window(t_fdf *fdf, short width, short height, char *title)
+{
+	t_window	*window;
+
+	if (!(window = (t_window *)malloc(sizeof(t_window))))
+		ft_fatal("err: out of memory\n");
+	window->mlx = mlx_init();
+	window->win = mlx_new_window(window->mlx, width, height, title);
+	window->height = height;
+	window->width = width;
+	fdf->window = window;
+}
+
 t_fdf		*fdf_init(short width, short height, char *title, char *filepath)
 {
 	t_fdf	*ret;
 
 	if ((ret = (t_fdf *)malloc(sizeof(t_fdf))))
 	{
-		if (!(ret->window = (t_window *)malloc(sizeof(t_window))))
-		{
-			free(ret);
-			ft_fatal("err: out of memory\n");
-		}
-		ret->window->mlx = mlx_init();
-		ret->window->win =
-			mlx_new_window(ret->window->mlx, width, height, title);
-		ret->window->height = height;
-		ret->window->width = width;
+		create_window(ret, width, height, title);
 		if (!(ret->blueprint = read_blueprint(
 			filepath, &ret->bp_rows, &ret->bp_cols, ret->z_minmax)))
 		{
+			free(ret->window);
+			ret->window = (void *)0;
 			free(ret);
 			ft_fatal("err: out of memory\n");
 		}
 		assign_initial_position(ret);
 		assign_colors(ret, 4242, 174210);
+		create_keys(ret);
 	}
 	fdf_destroy_later(ret, 1);
 	return (ret);
