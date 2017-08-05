@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/29 13:42:53 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/02 12:42:04 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/04 17:01:10 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,6 @@ t_color		*create_color(unsigned char r, unsigned char g, unsigned char b)
 	return (ret);
 }
 
-t_point		*create_point(t_coord *coord, t_color *color, int scale)
-{
-	t_point	*ret;
-
-	if (!(ret = (t_point *)malloc(sizeof(t_point))))
-		ft_fatal("err: out of memory\n");
-	ret->pos = coord;
-	ret->col = color;
-//	ret->px = ((float)(ret->pos->x) / MAX(ret->pos->z, 1)) * scale;
-//	ret->py = ((float)(ret->pos->y) / MAX(ret->pos->z, 1)) * scale;
-	if (scale)
-		return (ret);
-	return (ret);
-}
-
 t_color		*int_to_col(int color)
 {
 	return (create_color(
@@ -65,7 +50,6 @@ int			col_to_int(t_color color)
 	int	rgb;
 
 	rgb = color.r;
-
 	rgb = (rgb << 8) + color.g;
 	rgb = (rgb << 8) + color.b;
 	return (rgb);
