@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 09:49:05 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 15:08:17 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 15:15:38 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ void		assign_colors(t_fdf *fdf, int c1, int c2)
 
 	tmp = int_to_col(c1);
 	fdf->colors[0] = *tmp;
+	free(tmp);
 	tmp = int_to_col(c2);
 	fdf->colors[1] = *tmp;
+	free(tmp);
+	tmp = (void *)0;
 }
 
 static void	create_keys(t_fdf *fdf)
