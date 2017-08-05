@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 08:43:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 10:59:00 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 14:32:14 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ void		plot_grid(t_fdf *fdf)
 int			display_loop(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->window->mlx, fdf->window->win);
+	translate_object(*fdf);
+	scale_object(*fdf);
+	rotate_object(*fdf);
+	color_object(fdf);
 	plot_grid(fdf);
 	return (0);
 }
