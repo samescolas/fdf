@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 12:26:37 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 17:09:55 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 11:06:25 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	scale_object(int key, t_coord *scale)
 		scale->x -= 0.5;
 		scale->y -= 0.5;
 	}
-	else if (key == KEY_G)
+	else if (key == KEY_BRACK_L)
 		scale->z -= 0.5;
-	else if (key == KEY_H)
+	else if (key == KEY_BRACK_R)
 		scale->z += 0.5;
 }
 
@@ -59,12 +59,40 @@ void	rotate_object(int key, t_coord *rotation)
 		rotation->z += 0.25;
 }
 
+void	color_object(int key, t_color *colors)
+{
+	if (key == KEY_R)
+	{
+		if (colors[0].r - colors[1].r > 0)
+			colors[0].r -= 5;
+		else
+			colors[1].r -= 5;
+	}
+	else if (key == KEY_G)
+	{
+		if (colors[0].g - colors[1].g > 0)
+			colors[0].g -= 5;
+		else
+			colors[1].g -= 5;
+	}
+	else if (key == KEY_B)
+	{
+		if (colors[0].b - colors[1].b > 0)
+			colors[0].b -= 5;
+		else
+			colors[1].b -= 5;
+	}
+}
+
 int		keypress(int key, t_fdf *fdf)
 {
 	if (key == 53)
 		ft_atexit();
+	else
+		ft_putnbr(key);
 	scale_object(key, fdf->scale);
 	translate_object(key, fdf->translation);
 	rotate_object(key, fdf->rotation);
+	color_object(key, fdf->colors);
 	return (display_loop(fdf));
 }
