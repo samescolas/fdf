@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 17:39:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/05 11:07:33 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 14:58:15 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define MAX(a,b) (a > b ? a : b)
 # define ABS(x) (x < 0 ? -1 * x : x)
 
+# define KEY_ESCAPE 53
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_UP 126
@@ -40,12 +41,6 @@
 # include "../libs/minilibx/mlx.h"
 # include "../libs/libft/libft.h"
 
-typedef enum		e_bool
-{
-	FALSE,
-	TRUE
-}					t_bool;
-
 typedef struct		s_window
 {
 	void			*win;
@@ -60,6 +55,27 @@ typedef struct		s_coord
 	float			y;
 	float			z;
 }					t_coord;
+
+typedef struct		s_keys
+{
+	int				left:1;
+	int				right:1;
+	int				up:1;
+	int				down:1;
+	int				w:1;
+	int				a:1;
+	int				s:1;
+	int				d:1;
+	int				plus:1;
+	int				minus:1;
+	int				o:1;
+	int				p:1;
+	int				brack_l:1;
+	int				brack_r:1;
+	int				r:1;
+	int				g:1;
+	int				b:1;
+}					t_keys;
 
 typedef struct		s_color
 {
@@ -81,21 +97,31 @@ typedef struct		s_fdf
 	t_coord			*scale;
 	t_coord			*translation;
 	t_coord			*rotation;
+	t_keys			*keys;
 }					t_fdf;
 
 t_fdf				*fdf_init(short width, short height, char *title, char *fp);
-short				**read_blueprint(
-				char *filepath, short *rows, short *cols, short z_minmax[2]);
-void				fdf_destroy_later(t_fdf *fdf, int loading);
+void				assign_colors(t_fdf *fdf, int c1, int c2);
 
-void				plot_grid(t_fdf *fdf);
+short				**read_blueprint(
+									char *filepath,
+									short *rows,
+									short *cols,
+									short z_minmax[2]);
+
+void				apply_rotation(t_coord *rotation, float v1[3], float v2[3]);
+int					display_loop(t_fdf *fdf);
+void				draw_line(t_fdf fdf, float v1[3], float v2[3]);
+
+void				color_object(t_fdf *fdf);
+void				scale_object(t_fdf fdf);
+void				translate_object(t_fdf fdf);
+void				rotate_object(t_fdf fdf);
 
 int					keypress(int key, t_fdf *fdf);
-int					display_loop(t_fdf *fdf);
-void				apply_rotation(t_coord *rotation, float v1[3], float v2[3]);
+int					keyrelease(int key, t_fdf *fdf);
 
-void				draw_line(t_fdf fdf, float v1[3], float v2[3]);
-void				assign_colors(t_fdf *fdf, int c1, int c2);
+void				fdf_destroy_later(t_fdf *fdf, int loading);
 
 t_coord				*create_coord(float x, float y, float z);
 t_color				*create_color(
