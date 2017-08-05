@@ -40,7 +40,7 @@ print :
 	@echo $(OBJS)
 
 clean :
-	rm -f libft/*\.o$
+	rm -f libs/libft/*\.o$
 	rm -f .objs/*\.o$
 
 fclean : clean
