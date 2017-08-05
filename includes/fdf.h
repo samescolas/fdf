@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 17:39:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 19:19:55 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 11:07:33 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@
 # define KEY_D 2
 # define KEY_PLUS 24
 # define KEY_MINUS 27
-# define KEY_G 4
-# define KEY_H 5
 # define KEY_O 31
 # define KEY_P 35
+# define KEY_BRACK_L 33
+# define KEY_BRACK_R 30
+# define KEY_R 15
+# define KEY_G 5
+# define KEY_B 11
 
 # include <stdlib.h>
 # include <math.h>
