@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 17:55:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 19:11:18 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 10:06:03 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@ static int		choose_color(t_fdf fdf, float v1[3], float v2[3], int d)
 {
 	int			length;
 	int			step_size[3];
+	int			direction;
 	t_color		*ret;
 
-	if (v1[2] - v2[2] == 0 && v1[2] == 0)
+	direction = (v1[1] < v2[1]);
+	if (v2[2] == 0 && v1[2] == 0)
 		return (col_to_int(fdf.colors[0]));
 	else if (v1[2] - v2[2] == 0)
 		return (col_to_int(fdf.colors[1]));
 	else
-		ret = int_to_col(col_to_int(fdf.colors[0]));
+		ret = int_to_col(col_to_int(fdf.colors[direction]));
 	length = dist(v1[0], v2[0], v1[1], v2[1]);
-	step_size[0] = (int)(fdf.colors[0].r - fdf.colors[1].r) /
-		(length == 0 ? 1 : length);
-	step_size[1] = (int)(fdf.colors[0].g - fdf.colors[1].g) /
-		(length == 0 ? 1 : length);
-	step_size[2] = (int)(fdf.colors[0].b - fdf.colors[1].b) /
-		(length == 0 ? 1 : length);
-	ret = int_to_col(col_to_int(fdf.colors[0]));
+	step_size[0] = (int)(fdf.colors[direction].r - fdf.colors[!direction].r) /
+						(length == 0 ? 1 : length);
+	step_size[1] = (int)(fdf.colors[direction].g - fdf.colors[!direction].g) /
+						(length == 0 ? 1 : length);
+	step_size[2] = (int)(fdf.colors[direction].b - fdf.colors[!direction].b) /
+						(length == 0 ? 1 : length);
 	ret->r += (step_size[0] * -d);
 	ret->g += (step_size[1] * -d);
 	ret->b += (step_size[2] * -d);
@@ -83,6 +84,11 @@ static void		swap_vertices(float *v1, float *v2)
 	v1 = v2;
 	v2 = tmp;
 }
+
+/*
+** info[0] := bool(|∆y/∆x| > 1)
+** info[1] := step direction (where does y go as x increases?)
+*/
 
 void			draw_line(t_fdf fdf, float v1[3], float v2[3])
 {

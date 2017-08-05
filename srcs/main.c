@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/28 10:38:48 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 19:35:22 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 09:06:46 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static int	read_colors(int colors[2], char *col_string)
 
 	if (!(delim = ft_strchr(col_string, ',')))
 		return (-1);
-	colors[0] = ft_atoi(col_string);
-	colors[1] = ft_atoi(delim + 1);
+	colors[0] = ft_atoi_hex(ft_strchr(col_string, 'x') + 1);
+	colors[1] = ft_atoi_hex(ft_strchr(delim + 1, 'x') + 1);
+	if (colors[0] == 0 && colors[1] == 0)
+		return (-1);
 	return (0);
 }
 

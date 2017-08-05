@@ -6,7 +6,7 @@
 /*   By: sescolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 08:43:40 by sescolas          #+#    #+#             */
-/*   Updated: 2017/08/04 18:59:58 by sescolas         ###   ########.fr       */
+/*   Updated: 2017/08/05 09:32:07 by sescolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ static void	transform_and_draw(t_fdf *fdf, int x, int y, int vert)
 		fill_vec(v2, x + 1, y, fdf->blueprint[y][x + 1]);
 	normalize(*fdf, v1, v2);
 	v1[2] = fdf->blueprint[y][x];
-	v2[2] = fdf->blueprint[y][x + 1];
+	if (vert)
+		v2[2] = fdf->blueprint[y + 1][x];
+	else
+		v2[2] = fdf->blueprint[y][x + 1];
 	draw_line(*fdf, v1, v2);
 }
 
@@ -69,11 +72,11 @@ void		plot_grid(t_fdf *fdf)
 	while (++row < fdf->bp_rows)
 	{
 		col = -1;
-		while (++col < fdf->bp_cols)
+		while (++col + 1 < fdf->bp_cols)
 		{
 			if (row + 1 < fdf->bp_rows)
 				transform_and_draw(fdf, col, row, 1);
-			if (col + 1 < fdf->bp_cols)
+			if (col + 2 < fdf->bp_cols)
 				transform_and_draw(fdf, col, row, 0);
 		}
 	}
