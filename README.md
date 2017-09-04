@@ -4,8 +4,7 @@ The goal of this project was to create a program to read a map of integers repre
 and display a 3d wireframe of the map using nothing more than pixel_put to draw to the screen.
 
 ## Use:
-run Make
-./fdf ./maps/(CHOOSE MAP)
+run `make` to compile and `./fdf ./maps/(CHOOSE MAP)` to start
 
 ![fdf screenshot](/example.png)
 
